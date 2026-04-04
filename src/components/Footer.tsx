@@ -17,7 +17,7 @@ const Footer = () => (
             <LeafIcon className="h-6 w-6 text-green-400" />
             <span className="text-lg font-bold text-primary-foreground">AgriPredict AI</span>
           </div>
-          <p className="text-sm text-gray-400">Built for Indian Farmers 🇮🇳</p>
+          <p className="text-sm text-gray-400">Built for Indian Farmers</p>
           <p className="text-sm text-gray-500 mt-1">Smart Farming Starts Here</p>
         </div>
 

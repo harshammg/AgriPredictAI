@@ -50,13 +50,13 @@ const Register = () => {
       if (!res.ok) throw new Error('API error');
       const data = await res.json();
       login({ name: form.name, phone: form.phone, state: form.state, district: form.district, token: data.token || 'api-token' });
-      toast.success(`Welcome to AgriPredict AI, ${form.name.split(' ')[0]}! 🌾`);
-      navigate('/dashboard');
+      toast.success(`Welcome to AgriPredict AI, ${form.name.split(' ')[0]}!`);
+      navigate('/soil-details');
     } catch {
       // Demo mode fallback
       login({ name: form.name, phone: form.phone, state: form.state, district: form.district, token: 'demo-token-123' });
-      toast.success(`Welcome to AgriPredict AI, ${form.name.split(' ')[0]}! 🌾`);
-      navigate('/dashboard');
+      toast.success(`Welcome to AgriPredict AI, ${form.name.split(' ')[0]}!`);
+      navigate('/soil-details');
     } finally {
       setLoading(false);
     }

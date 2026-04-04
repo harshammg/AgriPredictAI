@@ -1,12 +1,39 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { API } from '@/config/api';
 
+interface SoilDetails {
+  nitrogen: number;
+  phosphorus: number;
+  potassium: number;
+  ph: number;
+}
+
+interface CropReport {
+  id: string;
+  name: string;
+  date: string;
+  crop: string;
+  season: string;
+  yield: number;
+  profit: number;
+  inputs: {
+    fertilizer: number;
+    pesticide: number;
+    n: number;
+    p: number;
+    k: number;
+    ph: number;
+  };
+}
+
 interface User {
   name: string;
   phone: string;
   state: string;
   district: string;
   token: string;
+  soilDetails?: SoilDetails;
+  reports?: CropReport[];
 }
 
 interface AuthContextType {
@@ -16,6 +43,7 @@ interface AuthContextType {
   isDemoMode: boolean;
   login: (data: User) => void;
   logout: () => void;
+  updateUser: (data: Partial<User>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -26,6 +54,19 @@ const MOCK_USER: User = {
   state: "Karnataka",
   district: "Mysuru",
   token: "demo-token-123",
+  soilDetails: { nitrogen: 68, phosphorus: 42, potassium: 38, ph: 6.8 },
+  reports: [
+    {
+      id: 'demo-1',
+      name: 'Rabi Wheat Analysis',
+      date: new Date().toISOString(),
+      crop: 'Wheat',
+      season: 'Rabi',
+      yield: 2100,
+      profit: 32000,
+      inputs: { fertilizer: 60, pesticide: 3, n: 68, p: 42, k: 38, ph: 6.8 }
+    }
+  ]
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -59,8 +100,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem('agripredict_user');
   }, []);
 
+  const updateUser = useCallback((data: Partial<User>) => {
+    setUser(prev => {
+      if (!prev) return null;
+      const updated = { ...prev, ...data };
+      localStorage.setItem('agripredict_user', JSON.stringify(updated));
+      return updated;
+    });
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isLoading, isDemoMode, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isLoading, isDemoMode, login, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

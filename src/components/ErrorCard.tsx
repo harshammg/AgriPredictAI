@@ -10,7 +10,7 @@ const ErrorCard = ({ message = "Something went wrong.", onRetry }: ErrorCardProp
     <div className="flex items-start gap-3">
       <AlertTriangle className="h-5 w-5 text-destructive flex-shrink-0 mt-0.5" />
       <div className="flex-1">
-        <p className="font-medium text-gray-900">⚠ {message}</p>
+        <p className="font-medium text-gray-900">{message}</p>
         {onRetry && (
           <button
             onClick={onRetry}

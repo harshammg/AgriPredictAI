@@ -1,4 +1,5 @@
-const BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const BASE = import.meta.env.VITE_API_URL;
+if (!BASE) console.warn("VITE_API_URL is NOT set. Frontend will not be able to connect to the backend.");
 
 export const API = {
   predictYield: `${BASE}/predict-yield`,

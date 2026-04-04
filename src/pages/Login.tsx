@@ -27,7 +27,7 @@ const Login = () => {
     // Demo shortcut
     if (phone === '9999999999' && password === 'password123') {
       login(MOCK_USER);
-      toast.success(`Welcome back, ${MOCK_USER.name.split(' ')[0]}! 🌾`);
+      toast.success(`Welcome back, ${MOCK_USER.name.split(' ')[0]}!`);
       navigate('/dashboard');
       return;
     }
@@ -41,7 +41,7 @@ const Login = () => {
       if (!res.ok) throw new Error('Invalid credentials');
       const data = await res.json();
       login({ name: data.name || 'User', phone, state: data.state || '', district: data.district || '', token: data.token });
-      toast.success('Welcome back! 🌾');
+      toast.success('Welcome back!');
       navigate('/dashboard');
     } catch {
       setError('Incorrect phone number or password.');
@@ -77,7 +77,7 @@ const Login = () => {
       {/* Right panel */}
       <div className="flex-1 flex items-center justify-center p-6 sm:p-12 bg-card">
         <div className="w-full max-w-md">
-          <h1 className="text-2xl font-bold mb-1">Welcome back 👋</h1>
+          <h1 className="text-2xl font-bold mb-1">Welcome back</h1>
           <p className="text-sm text-muted-foreground mb-8">
             New to AgriPredict AI? <Link to="/register" className="text-primary font-medium hover:text-green-600">Create account →</Link>
           </p>
